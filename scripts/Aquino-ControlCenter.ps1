@@ -5,9 +5,9 @@ $root = Get-AquinoRoot
 
 $form = New-Object Windows.Forms.Form
 $form.Text = 'Android Dex by Aquino — Control Center'
-$form.Size = New-Object Drawing.Size(620,430)
+$form.Size = New-Object Drawing.Size(620,455)
 $form.StartPosition = 'CenterScreen'
-$form.MinimumSize = New-Object Drawing.Size(620,430)
+$form.MinimumSize = New-Object Drawing.Size(620,455)
 
 $title = New-Object Windows.Forms.Label
 $title.Text = 'Android Dex by Aquino'
@@ -47,8 +47,8 @@ $status = New-Object Windows.Forms.TextBox
 $status.Multiline = $true
 $status.ReadOnly = $true
 $status.ScrollBars = 'Vertical'
-$status.Location = New-Object Drawing.Point(28,225)
-$status.Size = New-Object Drawing.Size(545,135)
+$status.Location = New-Object Drawing.Point(28,285)
+$status.Size = New-Object Drawing.Size(545,90)
 $form.Controls.Add($status)
 
 function Add-Status([string]$text) {
@@ -108,6 +108,19 @@ $fullNow.Add_Click({
     } catch { Add-Status "ERRO: $($_.Exception.Message)" }
 })
 $form.Controls.Add($fullNow)
+
+$gaming = New-Object Windows.Forms.Button
+$gaming.Text = '🎮 Aquino Gaming Hub'
+$gaming.Font = New-Object Drawing.Font('Segoe UI',10,[Drawing.FontStyle]::Bold)
+$gaming.Location = New-Object Drawing.Point(28,210)
+$gaming.Size = New-Object Drawing.Size(546,48)
+$gaming.Add_Click({
+    try {
+        Start-Process powershell.exe -ArgumentList @('-ExecutionPolicy','Bypass','-File',(Join-Path $PSScriptRoot 'Aquino-GamingHub.ps1'))
+        Add-Status 'Gaming Hub aberto.'
+    } catch { Add-Status "ERRO: $($_.Exception.Message)" }
+})
+$form.Controls.Add($gaming)
 
 Add-Status 'Control Center pronto.'
 [void]$form.ShowDialog()
