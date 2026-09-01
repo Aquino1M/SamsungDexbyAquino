@@ -42,7 +42,7 @@ Invoke-WebRequest https://raw.githubusercontent.com/Aquino1M/SamsungDexbyAquino/
 
 O instalador baixa a release oficial, valida o arquivo e cria a pasta `Android Dex by Aquino` em `%LOCALAPPDATA%`.
 
-## Patch de interface v0.3.4
+## Patch de interface v0.3.7
 
 Para aplicar o branding Aquino e traduzir a área de conexão da build compilada:
 
@@ -53,19 +53,21 @@ powershell -ExecutionPolicy Bypass -File .\scripts\Patch-CompiledUi.ps1
 O patch:
 
 - cria `Android_Dex/data/app.so.upstream-backup` antes de qualquer alteração;
-- mostra **Aquino1M** na área de melhorias;
+- mostra **GitHub Aquino1M** em um botão maior no rodapé;
 - mantém a indicação da base upstream;
-- traduz `Device Connection Guide` e passos de conexão para PT-BR;
-- troca a navegação/tutorial para rótulos em português;
-- altera a versão visual do rodapé para **V.1.3**;
-- remove a área de vídeos do Guia de Conexão Android, redirecionando-a para o guia manual PT-BR;
+- deixa o rodapé principal mais compacto: `Base Shrey | AQ | GitHub Aquino1M`;
+- traduz o guia de conexão para PT-BR;
+- mantém a versão visual do rodapé em **V.1.3**;
+- organiza o modal em duas abas: **Guia rápido PT-BR** e **Atualizações**;
+- transforma a antiga área de vídeos em cards de novidades do launcher, sem links de YouTube;
+- os cards de novidades abrem o repositório oficial `Aquino1M/SamsungDexbyAquino`;
 - preserva URLs de source/update/issues do upstream onde elas pertencem ao aplicativo base.
 
-O tutorial único em português está em [`docs/TUTORIAL_PTBR.md`](docs/TUTORIAL_PTBR.md).
+O guia em português está em [`docs/TUTORIAL_PTBR.md`](docs/TUTORIAL_PTBR.md) e o resumo das novidades em [`docs/NOVIDADES.md`](docs/NOVIDADES.md).
 
 ### Patch da build fechada
 
-A tela do guia está compilada no AOT Flutter. Nesta edição, o patch desativa a rotina compilada que montava a lista de vídeos e direciona essa área para o guia manual PT-BR. O script valida os bytes esperados antes de alterar o `app.so` e mantém `app.so.upstream-backup` para restauração. Como a aplicação-base continua fechada, o patch é específico para a build incluída no pacote.
+A tela do guia está compilada no AOT Flutter. Nesta edição, o patch reorganiza as duas views compiladas: a primeira mostra o guia manual PT-BR e a segunda reutiliza o layout de cards para exibir atualizações do launcher, sem links de vídeo. O script valida os bytes esperados antes de alterar o `app.so` e mantém `app.so.upstream-backup` para restauração. Como a aplicação-base continua fechada, o patch é específico para a build incluída no pacote.
 
 ## Gaming Hub
 
