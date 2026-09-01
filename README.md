@@ -31,20 +31,35 @@ SamsungDexbyAquino/
 │  └─ data/
 ├─ scripts/
 ├─ config/
-└─ start_android_dex.bat
+├─ start_android_dex.bat
+├─ start_control_center.bat
+└─ start_gaming_hub.bat
 ```
 
 ### 2. Ative Depuração USB no Android
 Ative **Opções do desenvolvedor > Depuração USB**, conecte o aparelho e aceite a autorização RSA.
 
-### 3. Abra o Control Center
-Execute:
+### 3. Escolha como iniciar
+
+Para abrir o **Android Dex original diretamente, igual à primeira versão**:
 
 ```text
 start_android_dex.bat
 ```
 
-O launcher testa o ADB, espera a autorização do aparelho, tenta reparar as portas reversas e só depois inicia o Android Dex.
+Para abrir o painel de manutenção Enhanced:
+
+```text
+start_control_center.bat
+```
+
+Para abrir diretamente os recursos de jogos:
+
+```text
+start_gaming_hub.bat
+```
+
+Na **v0.3.1**, o launcher principal não passa mais pelo Control Center. O aplicativo original abre imediatamente; ADB, diagnóstico, fullscreen e Gaming Hub ficam disponíveis separadamente.
 
 ## 🎮 Tela cheia em jogos
 
