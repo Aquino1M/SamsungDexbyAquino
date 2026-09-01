@@ -1,11 +1,10 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-where powershell.exe >nul 2>nul
-if errorlevel 1 (
-  echo PowerShell nao foi encontrado neste Windows.
+if not exist "Android_Dex\Android_Dex.exe" (
+  echo Android_Dex.exe nao encontrado em "%~dp0Android_Dex".
   pause
   exit /b 1
 )
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\Aquino-ControlCenter.ps1"
+start "" "%~dp0Android_Dex\Android_Dex.exe"
 endlocal
