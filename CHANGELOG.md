@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.4 — UI V1.3 / Guia sem vídeos
+
+- Atualizada a versão exibida no rodapé para **V.1.3**.
+- Removida a área de vídeos do **Guia de Conexão Android**.
+- O antigo painel de vídeos agora abre diretamente o conteúdo manual PT-BR.
+- `Patch-CompiledUi.ps1` ganhou parâmetro `-UiVersion` e validação do patch binário antes da alteração.
+- Mantido backup restaurável do `app.so` original.
+
 ## 0.3.0 — Gaming Engine
 
 - Added **Aquino Gaming Hub** and one-click `start_gaming_hub.bat`.
