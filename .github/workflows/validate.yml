@@ -1,0 +1,35 @@
+name: Validate Aquino Enhanced
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate PowerShell syntax
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem -Recurse -Include *.ps1,*.psm1 | ForEach-Object {
+            $tokens = $null
+            $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors)
+            if ($errors.Count -gt 0) {
+              $failed = $true
+              Write-Error "$($_.FullName): $($errors -join '; ')"
+            }
+          }
+          if ($failed) { exit 1 }
+      - name: Validate JSON files
+        shell: pwsh
+        run: |
+          Get-ChildItem -Recurse -Filter *.json | ForEach-Object {
+            Write-Host "Checking $($_.FullName)"
+            Get-Content $_.FullName -Raw | ConvertFrom-Json | Out-Null
+          }

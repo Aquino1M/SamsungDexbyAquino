@@ -1,0 +1,17 @@
+name: Feature request
+description: Sugira uma melhoria para o Android Dex by Aquino
+title: "[FEATURE] "
+labels: []
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Qual melhoria você gostaria?
+    validations:
+      required: true
+  - type: textarea
+    id: usecase
+    attributes:
+      label: Em qual situação isso ajudaria?
+    validations:
+      required: true
