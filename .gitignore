@@ -1,0 +1,14 @@
+# Runtime/build payloads
+Android_Dex/
+runtime/
+logs/
+diagnostics/
+*.log
+*.zip
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
