@@ -5,9 +5,9 @@ $root = Get-AquinoRoot
 
 $form = New-Object Windows.Forms.Form
 $form.Text = 'Android Dex by Aquino - Control Center'
-$form.Size = New-Object Drawing.Size(620,455)
+$form.Size = New-Object Drawing.Size(620,515)
 $form.StartPosition = 'CenterScreen'
-$form.MinimumSize = New-Object Drawing.Size(620,455)
+$form.MinimumSize = New-Object Drawing.Size(620,515)
 
 $title = New-Object Windows.Forms.Label
 $title.Text = 'Android Dex by Aquino'
@@ -17,7 +17,7 @@ $title.Location = New-Object Drawing.Point(24,20)
 $form.Controls.Add($title)
 
 $credit = New-Object Windows.Forms.Label
-$credit.Text = 'Criado por Aquino | github.com/Aquino1M'
+$credit.Text = 'Android Dex Enhanced/Gaming v0.3.2 por Aquino'
 $credit.AutoSize = $true
 $credit.Location = New-Object Drawing.Point(27,58)
 $form.Controls.Add($credit)
@@ -47,7 +47,7 @@ $status = New-Object Windows.Forms.TextBox
 $status.Multiline = $true
 $status.ReadOnly = $true
 $status.ScrollBars = 'Vertical'
-$status.Location = New-Object Drawing.Point(28,285)
+$status.Location = New-Object Drawing.Point(28,345)
 $status.Size = New-Object Drawing.Size(545,90)
 $form.Controls.Add($status)
 
@@ -121,6 +121,39 @@ $gaming.Add_Click({
     } catch { Add-Status "ERRO: $($_.Exception.Message)" }
 })
 $form.Controls.Add($gaming)
+
+$wireless = New-Object Windows.Forms.Button
+$wireless.Text = 'Conexao Wi-Fi'
+$wireless.Location = New-Object Drawing.Point(28,270)
+$wireless.Size = New-Object Drawing.Size(165,48)
+$wireless.Add_Click({
+    try {
+        Start-Process powershell.exe -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $PSScriptRoot 'Wireless-Adb.ps1'))
+        Add-Status 'Assistente de conexao Wi-Fi aberto.'
+    } catch { Add-Status "ERRO: $($_.Exception.Message)" }
+})
+$form.Controls.Add($wireless)
+
+$guide = New-Object Windows.Forms.Button
+$guide.Text = 'Guia PT-BR (sem videos)'
+$guide.Location = New-Object Drawing.Point(205,270)
+$guide.Size = New-Object Drawing.Size(242,48)
+$guide.Add_Click({
+    try {
+        $guidePath = Join-Path $root 'Android_Dex\Tutorial_Portugues.html'
+        if (-not (Test-Path $guidePath)) { throw 'Tutorial_Portugues.html nao encontrado.' }
+        Start-Process $guidePath
+        Add-Status 'Guia PT-BR aberto.'
+    } catch { Add-Status "ERRO: $($_.Exception.Message)" }
+})
+$form.Controls.Add($guide)
+
+$github = New-Object Windows.Forms.Button
+$github.Text = 'GitHub Aquino1M'
+$github.Location = New-Object Drawing.Point(459,270)
+$github.Size = New-Object Drawing.Size(115,48)
+$github.Add_Click({ Start-Process 'https://github.com/Aquino1M/SamsungDexbyAquino' })
+$form.Controls.Add($github)
 
 Add-Status 'Control Center pronto.'
 [void]$form.ShowDialog()
