@@ -1,164 +1,77 @@
-# Android Dex by Aquino — Enhanced Edition
+# Android Dex by Aquino — Enhanced / Gaming Edition
 
-> Projeto criado e mantido por **Aquino** — [@Aquino1M](https://github.com/Aquino1M)
+> **Enhanced/Gaming por Aquino — [@Aquino1M](https://github.com/Aquino1M)**
 
-Android Dex by Aquino transforma a experiência de usar um aparelho Android no Windows, com foco em produtividade, janelas, espelhamento, áudio e jogos. A edição **Enhanced** adiciona uma camada pública de estabilidade, diagnóstico e recursos para jogos ao redor da build existente.
+Este repositório contém a camada **Enhanced/Gaming** criada por Aquino em torno da build Android-Dex existente: launchers, recuperação ADB, diagnóstico, fullscreen, Wireless ADB, perfis de jogos, KeyMapper, gamepad, janelas por aplicativo e patches de interface.
 
-## ⭐ Principais recursos
+> **Importante sobre autoria:** a aplicação base `Android_Dex.exe` / Flutter é derivada da build **Android-Dex de Shrey113**, cujo repositório público identifica a aplicação como **Closed Source**. O projeto Aquino preserva essa atribuição. O nome “by Aquino” refere-se às melhorias, Gaming Engine, integração, patches, documentação e distribuição Enhanced — não à autoria do aplicativo-base fechado.
 
-- Supervisor ADB com recuperação automática do daemon `tcp:5037`.
-- Reparo das portas reversas `3698–3702` usadas pela build.
-- Espera inteligente pela autorização USB antes de enviar APK/JAR.
-- Modo **Borderless Fullscreen** para o Android Dex e janelas de jogos.
-- Perfis de jogo: padrão, baixa latência, qualidade, economia e ultrawide.
-- Base de compatibilidade por fabricante: Samsung, Xiaomi/Redmi/POCO, Motorola, Pixel, OnePlus, OPPO, realme, vivo e Nothing.
-- Assistente para **Wireless ADB** (pair/connect/disconnect/status).
-- Central de diagnóstico com relatório JSON pronto para anexar em Issues.
-- Control Center em PowerShell para iniciar, reparar e testar sem decorar comandos.
-- CI no GitHub para validar scripts PowerShell e arquivos JSON em cada atualização.
-- **Aquino Gaming Hub v0.3**: janelas por app, KeyMapper visual, UHID, gamepad, mouse FPS e até 165 FPS alvo.
+## Principais recursos Aquino
 
-## 🚀 Como testar
+- Supervisor ADB e recuperação do daemon `tcp:5037`.
+- Reparo das portas reversas `3698–3702`.
+- Wireless ADB pair/connect/disconnect.
+- Borderless fullscreen.
+- Gaming Hub com janela por aplicativo via scrcpy 4.
+- `--keyboard=uhid`, `--mouse=uhid` e `--gamepad=uhid`.
+- KeyMapper visual e fallback XInput → touch.
+- Perfis 30/60/90/120/144/165 FPS.
+- Codec automático e perfis de baixa latência.
+- Perfis ultrawide 21:9 e 32:9.
+- Diagnóstico e relatórios para Issues.
+- Patch seguro da UI compilada com backup do `app.so`.
 
-### 1. Baixe a build do Android Dex
-A build compilada deve ficar em uma pasta chamada `Android_Dex` na raiz deste repositório:
+## Como iniciar
 
-```text
-SamsungDexbyAquino/
-├─ Android_Dex/
-│  ├─ Android_Dex.exe
-│  ├─ Build_copy/
-│  └─ data/
-├─ scripts/
-├─ config/
-├─ start_android_dex.bat
-├─ start_control_center.bat
-└─ start_gaming_hub.bat
-```
-
-### 2. Ative Depuração USB no Android
-Ative **Opções do desenvolvedor > Depuração USB**, conecte o aparelho e aceite a autorização RSA.
-
-### 3. Escolha como iniciar
-
-Para abrir o **Android Dex original diretamente, igual à primeira versão**:
+Com a build base dentro de `Android_Dex/`:
 
 ```text
-start_android_dex.bat
+start_android_dex.bat       -> abre a interface principal diretamente
+start_control_center.bat    -> ADB, diagnóstico e fullscreen
+start_gaming_hub.bat        -> jogos, KeyMapper, gamepad e FPS
 ```
 
-Para abrir o painel de manutenção Enhanced:
+## Patch de interface v0.3.2
 
-```text
-start_control_center.bat
-```
-
-Para abrir diretamente os recursos de jogos:
-
-```text
-start_gaming_hub.bat
-```
-
-Na **v0.3.1**, o launcher principal não passa mais pelo Control Center. O aplicativo original abre imediatamente; ADB, diagnóstico, fullscreen e Gaming Hub ficam disponíveis separadamente.
-
-## 🎮 Tela cheia em jogos
-
-No Control Center, escolha o perfil desejado e marque **Tela cheia** antes de iniciar. Também é possível aplicar tela cheia em uma janela já aberta:
+Para aplicar o branding Aquino e traduzir a área de conexão da build compilada:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\Fullscreen.ps1 -ProcessName Android_Dex
+powershell -ExecutionPolicy Bypass -File .\scripts\Patch-CompiledUi.ps1
 ```
 
-Para uma janela do scrcpy:
+O patch:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\Fullscreen.ps1 -ProcessName scrcpy
-```
+- cria `Android_Dex/data/app.so.upstream-backup` antes de qualquer alteração;
+- mostra **Aquino1M** na área de melhorias;
+- mantém a indicação da base upstream;
+- traduz `Device Connection Guide` e passos de conexão para PT-BR;
+- troca a navegação/tutorial para rótulos em português;
+- preserva URLs de source/update/issues do upstream onde elas pertencem ao aplicativo base.
 
-Use `-Off` para voltar ao modo de janela.
+O tutorial único em português está em [`docs/TUTORIAL_PTBR.md`](docs/TUTORIAL_PTBR.md).
 
-## 🎮 Aquino Gaming Hub v0.3
+### Limitação da build fechada
 
-A build enviada pelo Aquino já inclui **scrcpy 4.0**, então o projeto agora usa recursos modernos dele diretamente:
+O widget que renderiza a lista interna de vídeos está compilado no AOT Flutter. Sem o fonte original dessa tela, remover estruturalmente o `TabBar` e a lista de cards exigiria reescrever o binário fechado de forma frágil. Por isso a v0.3.2 faz apenas substituições de strings de tamanho fixo, adiciona tutorial PT-BR local e mantém backup restaurável. Não publicamos o `app.so` fechado como código próprio.
 
-- `--new-display` para abrir cada jogo/app em uma janela Android independente;
-- `--flex-display` para redimensionar o display Android junto com a janela do Windows;
-- `--keyboard=uhid`, `--mouse=uhid` e `--gamepad=uhid` para controles físicos de baixa latência;
-- perfis 30/60/90/120/144/165 FPS;
-- codec automático por encoders disponíveis no aparelho;
-- editor visual de keymapping para jogos que aceitam apenas touchscreen;
-- fallback XInput → toque para gamepads em jogos sem suporte nativo.
+## Gaming Hub
 
-Execute:
+O guia completo está em [`docs/GAMING.md`](docs/GAMING.md). Os perfis de FPS são metas máximas: o FPS real depende do jogo, aparelho, encoder e tela.
 
-```text
-start_gaming_hub.bat
-```
-
-O guia completo está em [`docs/GAMING.md`](docs/GAMING.md).
-
-> 144/165 FPS são metas máximas passadas ao pipeline de vídeo; o FPS efetivo continua limitado pelo jogo, tela, encoder e aparelho Android.
-
-## 📶 Wireless ADB
-
-Pareamento:
-
-```powershell
-.\scripts\Wireless-Adb.ps1 -Action pair -Address 192.168.1.20:37123 -PairCode 123456
-```
-
-Conexão:
-
-```powershell
-.\scripts\Wireless-Adb.ps1 -Action connect -Address 192.168.1.20:5555
-```
-
-O endereço e as portas aparecem na tela **Depuração sem fio** do Android.
-
-## 🩺 Diagnóstico
+## Diagnóstico
 
 ```powershell
 .\scripts\Diagnostics.ps1
 ```
 
-O relatório verifica executável, ADB, APK companion, JARs, FFmpeg, WebView2 e estado do aparelho. Identificadores de dispositivo são mascarados no relatório para facilitar o envio público.
+Verifica executável, ADB, dispositivo, companion APK, JARs, FFmpeg, WebView2 e portas reversas.
 
-## 🛠️ Problemas que esta edição ataca
+## Autoria e terceiros
 
-A build analisada apresentou falhas reais como:
+**Código Enhanced/Gaming e customizações originais deste repositório:** Copyright © 2026 Aquino / Aquino1M.
 
-- `Reverse port 3698 failed`
-- `cannot connect to daemon at tcp:5037`
-- `device still authorizing`
-- `APK installation failed`
-- `JAR push failed`
+A aplicação base, scrcpy, FFmpeg, Flutter e demais componentes de terceiros continuam pertencendo aos respectivos autores e sujeitos às licenças/termos originais. Veja [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
-O launcher Enhanced tenta recuperar esses cenários automaticamente antes de iniciar o aplicativo.
+GitHub Aquino: **https://github.com/Aquino1M**
 
-## 🗺️ Roadmap
-
-As 20 melhorias planejadas e o estado de cada uma estão em [`docs/ROADMAP.md`](docs/ROADMAP.md).
-
-## 📦 Build compilada
-
-A build original enviada por Aquino é grande e contém binários de terceiros (Flutter, FFmpeg, scrcpy e outros). Por isso, o código público e os scripts Enhanced ficam neste repositório, enquanto builds distribuíveis devem ser publicadas na área **Releases** respeitando as licenças de todos os componentes de terceiros.
-
-## 🔐 Autoria e uso
-
-**Copyright © 2026 Aquino / Aquino1M. Todos os direitos reservados.**
-
-Este repositório é público para transparência, testes e feedback. A licença do código criado por Aquino **não autoriza** rebranding, venda, redistribuição como outro produto, remoção dos créditos ou alegação de autoria por terceiros. Componentes de terceiros continuam sujeitos às licenças originais deles.
-
-Leia [`LICENSE.md`](LICENSE.md) e [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
-
-## 🐛 Encontrou problema?
-
-Abra uma Issue usando o template de bug e, se possível, anexe o JSON criado por `scripts/Diagnostics.ps1`. Nunca publique códigos de pareamento, chaves, senhas ou dados pessoais.
-
----
-
-### Criado por Aquino
-
-GitHub: **https://github.com/Aquino1M**
-
-> Projeto independente. Não é afiliado, patrocinado ou endossado pela Samsung Electronics, Google, Microsoft ou pelos projetos de terceiros utilizados.
+> Projeto independente; não afiliado ou endossado por Samsung, Google, Microsoft, BlueStacks, LDPlayer, Nox, MuMu ou outros produtos usados como referência de funcionalidades.
