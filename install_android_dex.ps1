@@ -4,10 +4,10 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$version = 'v0.3.2'
-$archiveName = 'Android_Dex_by_Aquino_Gaming_v0.3.2.zip'
+$version = 'v0.3.3'
+$archiveName = 'Android_Dex_by_Aquino_Gaming_v0.3.3.zip'
 $archiveUrl = "https://github.com/Aquino1M/SamsungDexbyAquino/releases/download/$version/$archiveName"
-$expectedHash = '4475ED1C384275280886A6BDD8F8BA6D8508CE7DB97A6A7F44437C80F66C1889'
+$expectedHash = 'F3E1E01EDDF9178E3DEA5A0D1C9742D801AACFE7A7CC17CFF209EBD94DAB633F'
 $installPath = [IO.Path]::GetFullPath($InstallPath)
 
 if (Test-Path -LiteralPath $installPath) {

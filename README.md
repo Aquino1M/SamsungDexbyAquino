@@ -26,10 +26,10 @@ Este repositório contém a camada **Enhanced/Gaming** criada por Aquino em torn
 Com a build base dentro de `Android_Dex/`:
 
 ```text
-start_android_dex.bat       -> abre a interface principal diretamente
-start_control_center.bat    -> ADB, diagnóstico e fullscreen
-start_gaming_hub.bat        -> jogos, KeyMapper, gamepad e FPS
+Android_Dex_by_Aquino.exe   -> abre a interface principal diretamente
 ```
+
+O executável é o único launcher da distribuição. As ferramentas avançadas ficam em `config/` e `scripts/` para uso quando necessário.
 
 ## Instalação
 
