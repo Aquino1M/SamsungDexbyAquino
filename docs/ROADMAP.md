@@ -1,37 +1,28 @@
 # Roadmap — Android Dex by Aquino
 
-Legend: ✅ implemented in Enhanced layer · 🟡 foundation/partial · ⬜ requires original application source or deeper integration
+Legend: ✅ implemented · 🟡 implemented with device/game limitations · ⬜ future/native bridge
 
-1. ✅ **Borderless fullscreen for games** — fullscreen helper for Android_Dex/scrcpy windows.
-2. 🟡 **Fullscreen rules per application** — profile schema ready; automatic package-to-window integration requires app source.
-3. 🟡 **Adaptive aspect ratio** — profile schema supports resolution/aspect presets.
-4. 🟡 **Ultrawide 21:9 / 32:9 profiles** — presets included; virtual-display integration pending.
-5. 🟡 **Android 16 compatibility layer** — compatibility data and non-invasive launcher checks added; application-side display changes pending.
-6. ✅ **Manufacturer compatibility database** — Samsung, Xiaomi/Redmi/POCO, Motorola, Pixel, OnePlus, OPPO, realme, vivo, Nothing.
-7. 🟡 **Per-app compatibility profiles** — JSON override format added.
-8. 🟡 **Game Profiles 2.0** — persistent profile format added with FPS/codec/latency/fullscreen/resolution fields.
-9. ⬜ **Native XInput / DualSense / DirectInput support** — requires input pipeline source.
-10. ⬜ **Visual keymapping editor** — requires UI/input source.
-11. 🟡 **FPS mouse lock** — fullscreen/process foundation ready; raw relative mouse input requires source integration.
-12. 🟡 **30/60/90/120/144/165 FPS presets** — profile values added; backend enforcement pending.
-13. 🟡 **Automatic codec choice** — profile model includes auto/H.264/H.265/AV1 preference; encoder capability probing pending.
-14. 🟡 **Low-latency gaming mode** — low-latency profile added; backend buffer tuning pending.
-15. ✅ **Robust ADB recovery** — daemon restart, authorization wait and retry implemented.
-16. ✅ **Modern Wireless ADB helper** — pair/connect/disconnect/status implemented.
-17. 🟡 **Automatic USB ↔ Wi-Fi fallback** — wireless helper exists; seamless live transport migration pending.
-18. 🟡 **Desktop window manager behavior** — fullscreen/window controls added externally; per-app native windows require source.
-19. 🟡 **Desktop session persistence** — profile/runtime format foundation; automatic window restore pending.
-20. ✅ **Health/diagnostic center** — executable, ADB, devices, companion APK, JARs, FFmpeg, WebView2 and reverse-port checks.
+1. ✅ **Borderless/fullscreen gaming** — Android_Dex and scrcpy fullscreen.
+2. ✅ **Fullscreen/per-app profiles** — package can be opened with a selected gaming profile.
+3. ✅ **Adaptive aspect ratio** — scrcpy 4 flex display resizes the Android virtual display with the PC window.
+4. ✅ **Ultrawide 21:9 / 32:9** — virtual display presets.
+5. 🟡 **Android 16 compatibility** — uses scrcpy 4 virtual/flex display; manufacturer-specific Android 16 limitations remain possible.
+6. ✅ **Manufacturer compatibility database**.
+7. ✅ **Per-app keymap/profile format**.
+8. ✅ **Game Profiles 2.0** — resolution, DPI, FPS, codec, bitrate, latency, fullscreen and UHID settings.
+9. ✅ **Gamepad support** — native SDL3/UHID through scrcpy; XInput-to-touch fallback in Aquino KeyMapper.
+10. ✅ **Visual keymapping editor** — capture the scrcpy window and click to place controls.
+11. ✅ **FPS mouse lock** — native UHID relative mouse for supported games; F1 touch-look fallback for touchscreen-only titles.
+12. ✅ **30/60/90/120/144/165 FPS targets** — actual FPS depends on game/device/display.
+13. ✅ **Automatic codec probing** — prefers AV1, H.265, H.264, VP9 or VP8 from device encoder list.
+14. ✅ **Low-latency gaming profile** — zero video buffer and reduced audio buffers where supported.
+15. ✅ **Robust ADB recovery**.
+16. ✅ **Modern Wireless ADB**.
+17. 🟡 **USB ↔ Wi-Fi fallback** — connection tools exist; live in-game migration may still restart a scrcpy session.
+18. ✅ **Independent Android app windows** — scrcpy `--new-display` + `--start-app` + flex display.
+19. 🟡 **Session persistence** — profiles/keymaps persist; automatic reopening of every previous window is planned.
+20. ✅ **Health/diagnostic center**.
 
-## Next source-level milestone
+## Aquino Gaming Engine v0.3
 
-When the original Flutter project is available, priority order:
-
-1. integrate Health Center into the Flutter UI;
-2. add App Compatibility Service keyed by Android package name;
-3. integrate fullscreen/profile actions into the app launcher;
-4. add display presets and Android 16 adaptive/resizable behavior;
-5. implement native gamepad + raw mouse input;
-6. add visual keymapping editor;
-7. implement automatic encoder/FPS capability probing;
-8. add session restoration and USB/Wi-Fi seamless failover.
+The gaming layer no longer depends on the original Flutter UI for most gaming features. It runs beside the compiled Android Dex build and uses the bundled scrcpy 4.0/ADB. Touchscreen keymapping is implemented as an external compatibility fallback; native UHID keyboard/mouse/gamepad should be preferred whenever a game accepts physical controls.

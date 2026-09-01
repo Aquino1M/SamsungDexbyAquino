@@ -33,3 +33,17 @@ jobs:
             Write-Host "Checking $($_.FullName)"
             Get-Content $_.FullName -Raw | ConvertFrom-Json | Out-Null
           }
+
+      - name: Smoke-test Aquino Gaming module
+        shell: pwsh
+        run: |
+          Import-Module ./scripts/Aquino.Gaming.psm1 -Force
+          $required = @('Resolve-AquinoScrcpy','Start-AquinoGameWindow','Get-AquinoInstalledApps','Resolve-AquinoVideoCodec')
+          foreach ($name in $required) {
+            if (-not (Get-Command $name -ErrorAction SilentlyContinue)) { throw "Missing function: $name" }
+          }
+          $cfg = Get-AquinoGameProfiles -Root (Resolve-Path .)
+          foreach ($name in @('low_latency','competitive_90','competitive_144','competitive_165','ultrawide_21_9')) {
+            if (-not $cfg.profiles.$name) { throw "Missing gaming profile: $name" }
+          }
+          Write-Host 'Aquino Gaming module smoke-test passed.'

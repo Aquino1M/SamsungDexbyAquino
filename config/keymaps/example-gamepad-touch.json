@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 2,
+  "author": "Aquino / Aquino1M",
+  "package": "com.example.touchgame",
+  "referenceWidth": 1920,
+  "referenceHeight": 1080,
+  "mappings": [
+    {"id":"a","type":"GamepadTap","binding":"PAD_A","x":0.86,"y":0.80},
+    {"id":"b","type":"GamepadTap","binding":"PAD_B","x":0.91,"y":0.72},
+    {"id":"x","type":"GamepadTap","binding":"PAD_X","x":0.80,"y":0.72},
+    {"id":"y","type":"GamepadTap","binding":"PAD_Y","x":0.86,"y":0.64},
+    {"id":"up","type":"DPad","binding":"PAD_LY_UP","x":0.18,"y":0.78,"radius":0.10,"repeatMs":70},
+    {"id":"down","type":"DPad","binding":"PAD_LY_DOWN","x":0.18,"y":0.78,"radius":0.10,"repeatMs":70},
+    {"id":"left","type":"DPad","binding":"PAD_LX_LEFT","x":0.18,"y":0.78,"radius":0.10,"repeatMs":70},
+    {"id":"right","type":"DPad","binding":"PAD_LX_RIGHT","x":0.18,"y":0.78,"radius":0.10,"repeatMs":70}
+  ]
+}

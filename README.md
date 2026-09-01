@@ -16,6 +16,7 @@ Android Dex by Aquino transforma a experiência de usar um aparelho Android no W
 - Central de diagnóstico com relatório JSON pronto para anexar em Issues.
 - Control Center em PowerShell para iniciar, reparar e testar sem decorar comandos.
 - CI no GitHub para validar scripts PowerShell e arquivos JSON em cada atualização.
+- **Aquino Gaming Hub v0.3**: janelas por app, KeyMapper visual, UHID, gamepad, mouse FPS e até 165 FPS alvo.
 
 ## 🚀 Como testar
 
@@ -60,6 +61,28 @@ powershell -ExecutionPolicy Bypass -File .\scripts\Fullscreen.ps1 -ProcessName s
 ```
 
 Use `-Off` para voltar ao modo de janela.
+
+## 🎮 Aquino Gaming Hub v0.3
+
+A build enviada pelo Aquino já inclui **scrcpy 4.0**, então o projeto agora usa recursos modernos dele diretamente:
+
+- `--new-display` para abrir cada jogo/app em uma janela Android independente;
+- `--flex-display` para redimensionar o display Android junto com a janela do Windows;
+- `--keyboard=uhid`, `--mouse=uhid` e `--gamepad=uhid` para controles físicos de baixa latência;
+- perfis 30/60/90/120/144/165 FPS;
+- codec automático por encoders disponíveis no aparelho;
+- editor visual de keymapping para jogos que aceitam apenas touchscreen;
+- fallback XInput → toque para gamepads em jogos sem suporte nativo.
+
+Execute:
+
+```text
+start_gaming_hub.bat
+```
+
+O guia completo está em [`docs/GAMING.md`](docs/GAMING.md).
+
+> 144/165 FPS são metas máximas passadas ao pipeline de vídeo; o FPS efetivo continua limitado pelo jogo, tela, encoder e aparelho Android.
 
 ## 📶 Wireless ADB
 

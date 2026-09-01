@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.0 — Gaming Engine
+
+- Added **Aquino Gaming Hub** and one-click `start_gaming_hub.bat`.
+- Added independent Android app/game windows using bundled scrcpy 4.0 virtual displays.
+- Added flex display, fullscreen, ultrawide and per-game profiles.
+- Added native UHID keyboard, relative mouse and SDL3/UHID gamepad launching.
+- Added visual **Aquino KeyMapper** with normalized coordinates and saved per-package JSON profiles.
+- Added keyboard/mouse runtime with tap, repeated tap, swipe, D-pad, scripts and FPS-look fallback.
+- Added XInput-to-touch mappings for touchscreen-only games.
+- Added automatic device encoder probing and codec selection.
+- Added 90/144/165 FPS profiles and low-latency scrcpy buffers.
+- Added scrcpy diagnostics/probe tool.
+- Updated Control Center with a Gaming Hub entry point.
+
 ## 0.2.0-enhanced — 2026-09-01
 
 Public Enhanced foundation by Aquino.

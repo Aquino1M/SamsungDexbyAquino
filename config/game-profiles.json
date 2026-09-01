@@ -1,43 +1,17 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "author": "Aquino / Aquino1M",
   "profiles": {
-    "default": {
-      "display": { "mode": "auto", "width": 1920, "height": 1080, "dpi": 240, "fullscreen": false },
-      "video": { "fps": 60, "codec": "auto", "bitrateMbps": 12, "lowLatency": false },
-      "audio": { "enabled": true, "lowLatency": false },
-      "input": { "captureMouse": false, "relativeMouse": false, "gamepad": "auto" }
-    },
-    "low_latency": {
-      "display": { "mode": "landscape", "width": 1920, "height": 1080, "dpi": 240, "fullscreen": true },
-      "video": { "fps": 120, "codec": "auto", "bitrateMbps": 10, "lowLatency": true },
-      "audio": { "enabled": true, "lowLatency": true },
-      "input": { "captureMouse": true, "relativeMouse": true, "gamepad": "auto" }
-    },
-    "quality": {
-      "display": { "mode": "auto", "width": 2560, "height": 1440, "dpi": 280, "fullscreen": true },
-      "video": { "fps": 60, "codec": "auto", "bitrateMbps": 24, "lowLatency": false },
-      "audio": { "enabled": true, "lowLatency": false },
-      "input": { "captureMouse": false, "relativeMouse": false, "gamepad": "auto" }
-    },
-    "battery_saver": {
-      "display": { "mode": "auto", "width": 1280, "height": 720, "dpi": 220, "fullscreen": false },
-      "video": { "fps": 30, "codec": "auto", "bitrateMbps": 6, "lowLatency": false },
-      "audio": { "enabled": true, "lowLatency": false },
-      "input": { "captureMouse": false, "relativeMouse": false, "gamepad": "auto" }
-    },
-    "ultrawide_21_9": {
-      "display": { "mode": "landscape", "width": 2560, "height": 1080, "dpi": 240, "fullscreen": true },
-      "video": { "fps": 120, "codec": "auto", "bitrateMbps": 18, "lowLatency": true },
-      "audio": { "enabled": true, "lowLatency": true },
-      "input": { "captureMouse": true, "relativeMouse": true, "gamepad": "auto" }
-    },
-    "super_ultrawide_32_9": {
-      "display": { "mode": "landscape", "width": 3840, "height": 1080, "dpi": 240, "fullscreen": true },
-      "video": { "fps": 120, "codec": "auto", "bitrateMbps": 24, "lowLatency": true },
-      "audio": { "enabled": true, "lowLatency": true },
-      "input": { "captureMouse": true, "relativeMouse": true, "gamepad": "auto" }
-    }
+    "default": {"display":{"mode":"auto","width":1920,"height":1080,"dpi":240,"fullscreen":false},"video":{"fps":60,"codec":"auto","bitrateMbps":12,"lowLatency":false},"audio":{"enabled":true,"lowLatency":false},"input":{"captureMouse":false,"relativeMouse":false,"gamepad":"auto"}},
+    "low_latency": {"display":{"mode":"landscape","width":1920,"height":1080,"dpi":240,"fullscreen":true},"video":{"fps":120,"codec":"auto","bitrateMbps":10,"lowLatency":true},"audio":{"enabled":true,"lowLatency":true},"input":{"captureMouse":true,"relativeMouse":true,"gamepad":"uhid","keyboard":"uhid","mouse":"uhid"}},
+    "quality": {"display":{"mode":"auto","width":2560,"height":1440,"dpi":280,"fullscreen":true},"video":{"fps":60,"codec":"auto","bitrateMbps":24,"lowLatency":false},"audio":{"enabled":true,"lowLatency":false},"input":{"captureMouse":false,"relativeMouse":false,"gamepad":"auto"}},
+    "battery_saver": {"display":{"mode":"auto","width":1280,"height":720,"dpi":220,"fullscreen":false},"video":{"fps":30,"codec":"auto","bitrateMbps":6,"lowLatency":false},"audio":{"enabled":true,"lowLatency":false},"input":{"captureMouse":false,"relativeMouse":false,"gamepad":"auto"}},
+    "ultrawide_21_9": {"display":{"mode":"landscape","width":2560,"height":1080,"dpi":240,"fullscreen":true},"video":{"fps":120,"codec":"auto","bitrateMbps":18,"lowLatency":true},"audio":{"enabled":true,"lowLatency":true},"input":{"captureMouse":true,"relativeMouse":true,"gamepad":"uhid"}},
+    "super_ultrawide_32_9": {"display":{"mode":"landscape","width":3840,"height":1080,"dpi":240,"fullscreen":true},"video":{"fps":120,"codec":"auto","bitrateMbps":24,"lowLatency":true},"audio":{"enabled":true,"lowLatency":true},"input":{"captureMouse":true,"relativeMouse":true,"gamepad":"uhid"}},
+    "competitive_90": {"display":{"mode":"landscape","width":1920,"height":1080,"dpi":240,"fullscreen":true},"video":{"fps":90,"codec":"auto","bitrateMbps":12,"lowLatency":true},"audio":{"enabled":true,"lowLatency":true},"input":{"captureMouse":true,"relativeMouse":true,"gamepad":"uhid","keyboard":"uhid","mouse":"uhid"}},
+    "competitive_144": {"display":{"mode":"landscape","width":1920,"height":1080,"dpi":240,"fullscreen":true},"video":{"fps":144,"codec":"auto","bitrateMbps":16,"lowLatency":true},"audio":{"enabled":true,"lowLatency":true},"input":{"captureMouse":true,"relativeMouse":true,"gamepad":"uhid","keyboard":"uhid","mouse":"uhid"}},
+    "competitive_165": {"display":{"mode":"landscape","width":1920,"height":1080,"dpi":240,"fullscreen":true},"video":{"fps":165,"codec":"auto","bitrateMbps":18,"lowLatency":true},"audio":{"enabled":true,"lowLatency":true},"input":{"captureMouse":true,"relativeMouse":true,"gamepad":"uhid","keyboard":"uhid","mouse":"uhid"}}
   },
-  "appOverrides": {}
+  "appOverrides": {},
+  "gamingEngine": {"scrcpyMinVersion":"4.0","nativeInput":"UHID/SDL3","keymapper":"Aquino KeyMapper v0.3","notes":"FPS target is a ceiling; actual frame rate depends on device/game/display."}
 }
