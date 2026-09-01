@@ -17,7 +17,7 @@ $title.Location = New-Object Drawing.Point(24,20)
 $form.Controls.Add($title)
 
 $credit = New-Object Windows.Forms.Label
-$credit.Text = 'Android Dex Enhanced/Gaming v0.3.4 por Aquino'
+$credit.Text = 'Android Dex Enhanced/Gaming v0.3.7 por Aquino'
 $credit.AutoSize = $true
 $credit.Location = New-Object Drawing.Point(27,58)
 $form.Controls.Add($credit)
@@ -151,7 +151,7 @@ $form.Controls.Add($guide)
 $github = New-Object Windows.Forms.Button
 $github.Text = 'GitHub Aquino1M'
 $github.Location = New-Object Drawing.Point(459,270)
-$github.Size = New-Object Drawing.Size(115,48)
+$github.Size = New-Object Drawing.Size(140,48)
 $github.Add_Click({ Start-Process 'https://github.com/Aquino1M/SamsungDexbyAquino' })
 $form.Controls.Add($github)
 
