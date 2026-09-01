@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "author": "Aquino / Aquino1M",
+  "profiles": {
+    "default": {
+      "display": { "mode": "auto", "width": 1920, "height": 1080, "dpi": 240, "fullscreen": false },
+      "video": { "fps": 60, "codec": "auto", "bitrateMbps": 12, "lowLatency": false },
+      "audio": { "enabled": true, "lowLatency": false },
+      "input": { "captureMouse": false, "relativeMouse": false, "gamepad": "auto" }
+    },
+    "low_latency": {
+      "display": { "mode": "landscape", "width": 1920, "height": 1080, "dpi": 240, "fullscreen": true },
+      "video": { "fps": 120, "codec": "auto", "bitrateMbps": 10, "lowLatency": true },
+      "audio": { "enabled": true, "lowLatency": true },
+      "input": { "captureMouse": true, "relativeMouse": true, "gamepad": "auto" }
+    },
+    "quality": {
+      "display": { "mode": "auto", "width": 2560, "height": 1440, "dpi": 280, "fullscreen": true },
+      "video": { "fps": 60, "codec": "auto", "bitrateMbps": 24, "lowLatency": false },
+      "audio": { "enabled": true, "lowLatency": false },
+      "input": { "captureMouse": false, "relativeMouse": false, "gamepad": "auto" }
+    },
+    "battery_saver": {
+      "display": { "mode": "auto", "width": 1280, "height": 720, "dpi": 220, "fullscreen": false },
+      "video": { "fps": 30, "codec": "auto", "bitrateMbps": 6, "lowLatency": false },
+      "audio": { "enabled": true, "lowLatency": false },
+      "input": { "captureMouse": false, "relativeMouse": false, "gamepad": "auto" }
+    },
+    "ultrawide_21_9": {
+      "display": { "mode": "landscape", "width": 2560, "height": 1080, "dpi": 240, "fullscreen": true },
+      "video": { "fps": 120, "codec": "auto", "bitrateMbps": 18, "lowLatency": true },
+      "audio": { "enabled": true, "lowLatency": true },
+      "input": { "captureMouse": true, "relativeMouse": true, "gamepad": "auto" }
+    },
+    "super_ultrawide_32_9": {
+      "display": { "mode": "landscape", "width": 3840, "height": 1080, "dpi": 240, "fullscreen": true },
+      "video": { "fps": 120, "codec": "auto", "bitrateMbps": 24, "lowLatency": true },
+      "audio": { "enabled": true, "lowLatency": true },
+      "input": { "captureMouse": true, "relativeMouse": true, "gamepad": "auto" }
+    }
+  },
+  "appOverrides": {}
+}

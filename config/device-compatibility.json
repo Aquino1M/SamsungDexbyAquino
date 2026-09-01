@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "author": "Aquino / Aquino1M",
+  "manufacturers": {
+    "samsung": {
+      "aliases": ["samsung"],
+      "notes": "Prefer standard ADB authorization. Reconnect USB after revoking debugging authorizations if reverse-port setup repeatedly fails.",
+      "wirelessAdb": true
+    },
+    "xiaomi": {
+      "aliases": ["xiaomi", "redmi", "poco"],
+      "notes": "Some MIUI/HyperOS devices may require USB debugging plus additional security/USB installation permissions for companion APK installation.",
+      "wirelessAdb": true
+    },
+    "motorola": {
+      "aliases": ["motorola", "lenovo"],
+      "notes": "Use File Transfer/Android Auto USB mode if Windows does not enumerate the ADB interface reliably.",
+      "wirelessAdb": true
+    },
+    "google": {
+      "aliases": ["google", "pixel"],
+      "notes": "Modern Android Wireless Debugging is recommended when USB transport is unstable.",
+      "wirelessAdb": true
+    },
+    "oneplus": {
+      "aliases": ["oneplus"],
+      "notes": "Verify USB debugging authorization after OxygenOS security updates.",
+      "wirelessAdb": true
+    },
+    "oppo": {
+      "aliases": ["oppo"],
+      "notes": "ColorOS may expose extra USB security toggles. Keep installation permissions enabled while installing the companion APK.",
+      "wirelessAdb": true
+    },
+    "realme": {
+      "aliases": ["realme"],
+      "notes": "If APK installation is blocked, check developer USB installation/security settings.",
+      "wirelessAdb": true
+    },
+    "vivo": {
+      "aliases": ["vivo", "iqoo"],
+      "notes": "Some Funtouch/OriginOS versions require additional developer security confirmation for ADB installs.",
+      "wirelessAdb": true
+    },
+    "nothing": {
+      "aliases": ["nothing"],
+      "notes": "Standard Android ADB flow expected. Wireless debugging is supported on modern Android versions.",
+      "wirelessAdb": true
+    }
+  }
+}
