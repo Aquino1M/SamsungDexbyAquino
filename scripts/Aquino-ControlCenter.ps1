@@ -17,7 +17,7 @@ $title.Location = New-Object Drawing.Point(24,20)
 $form.Controls.Add($title)
 
 $credit = New-Object Windows.Forms.Label
-$credit.Text = 'Android Dex Enhanced/Gaming v0.3.2 por Aquino'
+$credit.Text = 'Android Dex Enhanced/Gaming v0.3.4 por Aquino'
 $credit.AutoSize = $true
 $credit.Location = New-Object Drawing.Point(27,58)
 $form.Controls.Add($credit)
