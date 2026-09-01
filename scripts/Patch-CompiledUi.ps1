@@ -1,6 +1,7 @@
 [CmdletBinding()]
 param(
-    [string]$Root = (Split-Path $PSScriptRoot -Parent)
+    [string]$Root = (Split-Path $PSScriptRoot -Parent),
+    [string]$UiVersion = 'V.1.3'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -22,12 +23,17 @@ function Fit([string]$old, [string]$new) {
     return $new + (' ' * ($old.Length - $new.Length))
 }
 
+if ($UiVersion.Length -gt 5) {
+    throw 'UiVersion deve ter no maximo 5 caracteres (ex.: V.1.3).'
+}
+
 $patches = [ordered]@{
     'Powered by' = 'Base Shrey'
     'Desenvolvido por' = 'Melhorado por AQ'
     'Device Connection Guide' = 'Guia de Conexao Android'
     'Pair your Android phone via USB cable or Wi-Fi network' = 'Conecte seu Android por USB ou pela mesma rede Wi-Fi.'
-    'Step 1: Video Tutorials' = 'Tutorial: Portugues BR!'
+    'Step 1: Video Tutorials' = 'Guia rapido PT-BR'
+    'Tutorial: Portugues BR!' = 'Guia rapido PT-BR'
     'Step 2: Manual Steps' = 'Passos manuais PT-BR'
     'Got It' = 'Pronto'
     'Connection Guide' = 'Guia de Conexao'
@@ -46,8 +52,15 @@ foreach ($entry in $patches.GetEnumerator()) {
     }
 }
 
+# Atualiza a versao exibida no rodape da interface.
+foreach ($oldVersion in @('V.1.2', 'V.1.3')) {
+    if ($text.Contains($oldVersion)) {
+        $text = $text.Replace($oldVersion, (Fit $oldVersion $UiVersion))
+    }
+}
+
 $oldFooter = 'Special thanks to the independent community creators for publishing these helpful YouTube tutorials. These videos are created independently to assist users and are not sponsored by or affiliated with developer '
-$newFooter = 'Tutorial da edicao Aquino: conecte o celular por USB, ative Opcoes do Desenvolvedor e Depuracao USB, autorize este computador e siga os passos manuais em Portugues. Videos externos nao sao necessarios.'
+$newFooter = 'Tutorial da edicao Aquino: conecte o celular por USB, ative Opcoes do Desenvolvedor e Depuracao USB, autorize este computador e siga os passos manuais em Portugues.'
 if ($text.Contains($oldFooter)) {
     $text = $text.Replace($oldFooter, (Fit $oldFooter $newFooter))
 }
@@ -70,7 +83,36 @@ while ($true) {
     $start = $idx + 1
 }
 
+# As substituicoes de texto usam ISO-8859-1 para preservar byte a byte o restante do snapshot AOT.
 [System.IO.File]::WriteAllBytes($app, $enc.GetBytes($text))
+
+# Remove a area de videos da interface: a funcao compilada _buildVideoGuide e redirecionada
+# para _buildManualStepsGuide. Este patch e especifico para a build base presente neste pacote.
+$bytes = [System.IO.File]::ReadAllBytes($app)
+$videoGuideOffset = 0x852544
+$manualGuideOffset = 0x8520F4
+$expectedPrefix = [byte[]](0x55, 0x48, 0x89, 0xE5, 0x48)
+$relative = [int]($manualGuideOffset - ($videoGuideOffset + 5))
+$jump = New-Object byte[] 5
+$jump[0] = 0xE9
+[BitConverter]::GetBytes($relative).CopyTo($jump, 1)
+
+$matchesOriginal = $true
+$matchesPatched = $true
+for ($i = 0; $i -lt 5; $i++) {
+    if ($bytes[$videoGuideOffset + $i] -ne $expectedPrefix[$i]) { $matchesOriginal = $false }
+    if ($bytes[$videoGuideOffset + $i] -ne $jump[$i]) { $matchesPatched = $false }
+}
+
+if ($matchesOriginal) {
+    [Array]::Copy($jump, 0, $bytes, $videoGuideOffset, 5)
+    [System.IO.File]::WriteAllBytes($app, $bytes)
+    Write-Host 'OK: area de videos removida do Guia de Conexao Android.'
+} elseif ($matchesPatched) {
+    Write-Host 'OK: area de videos ja estava removida.'
+} else {
+    throw ('Build app.so diferente da esperada; patch de videos nao aplicado. Bytes: ' + (($bytes[$videoGuideOffset..($videoGuideOffset+7)] | ForEach-Object { $_.ToString('X2') }) -join ' '))
+}
 
 $notice = @'
 Android Dex by Aquino - Enhanced/Gaming Edition
@@ -83,5 +125,5 @@ The Aquino name refers to the Enhanced/Gaming modifications and distribution lay
 '@
 Set-Content -Path (Join-Path $Root 'Android_Dex\AQUINO_ENHANCED_NOTICE.txt') -Value $notice -Encoding UTF8
 
-Write-Host 'Patch Aquino aplicado com sucesso.'
+Write-Host "Patch Aquino aplicado com sucesso. Versao da UI: $UiVersion"
 Write-Host 'Para restaurar a base, copie app.so.upstream-backup sobre app.so.'
