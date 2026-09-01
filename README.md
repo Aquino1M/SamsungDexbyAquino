@@ -31,6 +31,17 @@ start_control_center.bat    -> ADB, diagnóstico e fullscreen
 start_gaming_hub.bat        -> jogos, KeyMapper, gamepad e FPS
 ```
 
+## Instalação
+
+No PowerShell, execute:
+
+```powershell
+Invoke-WebRequest https://raw.githubusercontent.com/Aquino1M/SamsungDexbyAquino/main/install_android_dex.ps1 -OutFile .\install_android_dex.ps1
+.\install_android_dex.ps1
+```
+
+O instalador baixa a release oficial, valida o arquivo e cria a pasta `Android Dex by Aquino` em `%LOCALAPPDATA%`.
+
 ## Patch de interface v0.3.2
 
 Para aplicar o branding Aquino e traduzir a área de conexão da build compilada:
