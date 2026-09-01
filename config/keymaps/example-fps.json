@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 2,
+  "author": "Aquino / Aquino1M",
+  "package": "com.example.game",
+  "referenceWidth": 1920,
+  "referenceHeight": 1080,
+  "mappings": [
+    {"id":"move_up","type":"DPad","binding":"W","x":0.18,"y":0.78,"radius":0.10,"repeatMs":70},
+    {"id":"move_left","type":"DPad","binding":"A","x":0.18,"y":0.78,"radius":0.10,"repeatMs":70},
+    {"id":"move_down","type":"DPad","binding":"S","x":0.18,"y":0.78,"radius":0.10,"repeatMs":70},
+    {"id":"move_right","type":"DPad","binding":"D","x":0.18,"y":0.78,"radius":0.10,"repeatMs":70},
+    {"id":"fire","type":"RepeatedTap","binding":"LMB","x":0.88,"y":0.62,"repeatMs":80},
+    {"id":"jump","type":"Tap","binding":"SPACE","x":0.80,"y":0.80},
+    {"id":"reload","type":"Tap","binding":"R","x":0.73,"y":0.57},
+    {"id":"look","type":"FPSLook","binding":"F1","x":0.50,"y":0.50,"sensitivity":1.25}
+  ]
+}
