@@ -1,11 +1,21 @@
 # Changelog
 
+## 0.3.7-ui — guia + novidades + rodapé
+
+- O modal de conexão agora tem duas abas úteis: **Guia rápido PT-BR** e **Atualizações**.
+- A aba **Atualizações** usa cards internos para mostrar novidades do launcher, Gaming Hub, ADB, FPS e interface.
+- Todos os links dos cards apontam para o repositório Aquino; nenhuma URL de vídeo do YouTube é usada nessa área.
+- O botão/selo do rodapé passa a mostrar **GitHub Aquino1M**.
+- O rodapé principal foi simplificado para `Base Shrey | AQ | GitHub Aquino1M`, liberando espaço para o botão maior.
+- O rodapé do guia foi reduzido e ficou mais limpo.
+- Os textos do guia de conexão foram traduzidos para PT-BR onde a build compilada permite patch seguro.
+
 ## 0.3.4 — UI V1.3 / Guia sem vídeos
 
 - Atualizada a versão exibida no rodapé para **V.1.3**.
 - Removida a área de vídeos do **Guia de Conexão Android**.
-- O antigo painel de vídeos agora abre diretamente o conteúdo manual PT-BR.
-- `Patch-CompiledUi.ps1` ganhou parâmetro `-UiVersion` e validação do patch binário antes da alteração.
+- O antigo painel de vídeos passou a abrir diretamente o conteúdo manual PT-BR.
+- `Patch-CompiledUi.ps1` ganhou validação do patch binário antes da alteração.
 - Mantido backup restaurável do `app.so` original.
 
 ## 0.3.0 — Gaming Engine
