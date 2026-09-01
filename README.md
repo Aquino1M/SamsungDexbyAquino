@@ -42,7 +42,7 @@ Invoke-WebRequest https://raw.githubusercontent.com/Aquino1M/SamsungDexbyAquino/
 
 O instalador baixa a release oficial, valida o arquivo e cria a pasta `Android Dex by Aquino` em `%LOCALAPPDATA%`.
 
-## Patch de interface v0.3.2
+## Patch de interface v0.3.4
 
 Para aplicar o branding Aquino e traduzir a área de conexão da build compilada:
 
@@ -57,13 +57,15 @@ O patch:
 - mantém a indicação da base upstream;
 - traduz `Device Connection Guide` e passos de conexão para PT-BR;
 - troca a navegação/tutorial para rótulos em português;
+- altera a versão visual do rodapé para **V.1.3**;
+- remove a área de vídeos do Guia de Conexão Android, redirecionando-a para o guia manual PT-BR;
 - preserva URLs de source/update/issues do upstream onde elas pertencem ao aplicativo base.
 
 O tutorial único em português está em [`docs/TUTORIAL_PTBR.md`](docs/TUTORIAL_PTBR.md).
 
-### Limitação da build fechada
+### Patch da build fechada
 
-O widget que renderiza a lista interna de vídeos está compilado no AOT Flutter. Sem o fonte original dessa tela, remover estruturalmente o `TabBar` e a lista de cards exigiria reescrever o binário fechado de forma frágil. Por isso a v0.3.2 faz apenas substituições de strings de tamanho fixo, adiciona tutorial PT-BR local e mantém backup restaurável. Não publicamos o `app.so` fechado como código próprio.
+A tela do guia está compilada no AOT Flutter. Nesta edição, o patch desativa a rotina compilada que montava a lista de vídeos e direciona essa área para o guia manual PT-BR. O script valida os bytes esperados antes de alterar o `app.so` e mantém `app.so.upstream-backup` para restauração. Como a aplicação-base continua fechada, o patch é específico para a build incluída no pacote.
 
 ## Gaming Hub
 
