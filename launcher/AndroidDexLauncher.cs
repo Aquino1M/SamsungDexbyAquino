@@ -9,13 +9,18 @@ internal static class AndroidDexLauncher
     private static void Main()
     {
         var root = AppDomain.CurrentDomain.BaseDirectory;
-        var executable = Path.Combine(root, "Android_Dex", "Android_Dex.exe");
-        if (!File.Exists(executable))
+        var bootstrap = Path.Combine(root, "Android_Dex", "Launcher_AQ.bat");
+        var runtime = Path.Combine(root, "Android_Dex", "Android_Dex.exe");
+        if (!File.Exists(bootstrap) || !File.Exists(runtime))
         {
-            MessageBox.Show("Android_Dex.exe nao foi encontrado na pasta Android_Dex.", "Android Dex by Aquino", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("A edição Aquino não encontrou Launcher_AQ.bat ou Android_Dex.exe. Reextraia o pacote completo.", "Android Dex by Aquino", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
-
-        Process.Start(new ProcessStartInfo(executable) { WorkingDirectory = Path.GetDirectoryName(executable), UseShellExecute = true });
+        Process.Start(new ProcessStartInfo(bootstrap)
+        {
+            WorkingDirectory = Path.GetDirectoryName(bootstrap),
+            UseShellExecute = true,
+            WindowStyle = ProcessWindowStyle.Hidden
+        });
     }
 }
