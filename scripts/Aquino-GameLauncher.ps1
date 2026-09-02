@@ -163,7 +163,7 @@ $open.Add_Click({
         if ([string]::IsNullOrWhiteSpace($pkg)) { throw 'Escolha ou digite o package do jogo.' }
         $result = Start-AquinoGameWindow -Package $pkg -Profile ([string]$profileBox.SelectedItem) -FlexDisplay:$flex.Checked -Fullscreen:$full.Checked -NativeKeyboard:$kbd.Checked -NativeMouse:$mouse.Checked -NativeGamepad:$pad.Checked -NoSystemDecorations:$decor.Checked -KeepAppOnClose:$keep.Checked -ExternalWindow:$external.Checked -EnableTouchMapping:$mapping.Checked
         $where = if($result.Embedded){'integrado ao Android Dex'}else{'janela externa'}
-        Add-Status "Iniciado $where: $pkg | perfil=$($result.Profile) | codec=$($result.Codec) | PID=$($result.Process.Id)"
+        Add-Status "Iniciado ${where}: $pkg | perfil=$($result.Profile) | codec=$($result.Codec) | PID=$($result.Process.Id)"
     } catch { Add-Status "ERRO: $($_.Exception.Message)" }
 })
 $keymap.Add_Click({
