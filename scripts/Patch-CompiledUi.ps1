@@ -41,6 +41,22 @@ Set-OneByteString 0x274E20 16 'GitHub Aquino1M'
 Set-OneByteString 0x33E530 16 'GitHub Aquino1M'
 Set-OneByteString 0x3498F0 32 'https://github.com/Aquino1M'
 
+# Configuracoes Aquino: jogos, gamepad e atualizacoes dentro da pagina Sobre.
+Set-OneByteString 0x356260 32 'Jogos, Gamepad e Atualizações'
+Set-OneByteString 0x296390 48 'Perfis · Gamepad · FPS · Atualizações'
+Set-OneByteString 0x346490 32 'RECURSOS AQUINO1M'
+Set-OneByteString 0x2791C0 48 'Projeto Aquino1M (SamsungDex)'
+Set-OneByteString 0x2A9C40 64 'Repositório Aquino1M · Launcher · Gaming · Atualizações'
+Set-OneByteString 0x38B9A0 40 'Configurar Jogos e Gamepad'
+Set-OneByteString 0x380050 80 'Mapeamento tipo BlueStacks · Teclado · Mouse · Controle'
+Set-OneByteString 0x3987F0 48 'https://github.com/Aquino1M/SamsungDexbyAquino'
+Set-OneByteString 0x27B490 40 'aquino-gamepad://open'
+Set-OneByteString 0x3A3A50 48 'https://github.com/Aquino1M/SamsungDexbyAquino'
+Set-OneByteString 0x3B9900 64 'V1.3 Aquino: Gamepad, KeyMapper e Gaming Hub atualizados.'
+
+# Widget inicial: reduz o texto da esquerda para o botao GitHub Aquino1M caber sem corte.
+Set-TwoByteString 0x314E50 23 'V.1.3 · Aquino1M'
+
 # Modal de conexao: duas abas uteis.
 Set-OneByteString 0x3B5050 32 'Guia rápido PT-BR'
 Set-OneByteString 0x2DA5D0 32 'Atualizações'
@@ -77,20 +93,20 @@ Set-TwoByteString 0x3D4860 16 'FPS'
 Set-TwoByteString 0x3A8760 16 'Proximas'
 
 # Cards de atualizacoes/novidades do launcher.
-Set-OneByteString 0x396BA0 64 'V1.3: interface renovada e mais limpa'
-Set-TwoByteString 0x358C80 64 'Launcher unico Android_Dex_by_Aquino.exe'
-Set-TwoByteString 0x2C4CB0 56 'Guia de conexao agora sem videos externos'
-Set-OneByteString 0x311BF0 48 'Nova aba de atualizacoes e novidades'
-Set-OneByteString 0x3CCB20 64 'Botao GitHub Aquino1M ampliado'
-Set-OneByteString 0x390190 96 'Rodape reorganizado e melhor alinhado'
-Set-TwoByteString 0x2BB530 40 'Interface mais limpa no modal'
-Set-TwoByteString 0x2A6660 56 'KeyMapper para teclado e mouse'
-Set-OneByteString 0x3CF180 96 'Gaming Hub com perfis de jogos e janelas independentes'
-Set-TwoByteString 0x27A130 40 'Perfis 90 144 e 165 FPS'
-Set-OneByteString 0x3493B0 80 'ADB USB com reparo e reconexao automatica'
-Set-OneByteString 0x32C250 64 'ADB por Wi-Fi e TCP simplificado'
-Set-OneByteString 0x3E48D0 64 'Baixa latencia e perfis de desempenho'
-Set-TwoByteString 0x3AE870 64 'Novas melhorias serao publicadas nesta aba'
+Set-OneByteString 0x396BA0 64 'V1.3 Aquino: jogos e controles integrados'
+Set-TwoByteString 0x358C80 64 'Launcher Aquino abre o runtime editado correto'
+Set-TwoByteString 0x2C4CB0 56 'Configuracoes agora tem Jogos e Gamepad'
+Set-OneByteString 0x311BF0 48 'Recursos apontam para Aquino1M'
+Set-OneByteString 0x3CCB20 64 'GitHub Aquino1M ajustado no widget inicial'
+Set-OneByteString 0x390190 96 'Rodape e identificacao Aquino reorganizados'
+Set-TwoByteString 0x2BB530 40 'Menu e interface mais limpos'
+Set-TwoByteString 0x2A6660 56 'Editor tipo BlueStacks: teclado, mouse e gamepad'
+Set-OneByteString 0x3CF180 96 'Jogos agora podem abrir integrados dentro do Android Dex'
+Set-TwoByteString 0x27A130 40 'Gamepad Xbox / DualSense via UHID'
+Set-OneByteString 0x3493B0 80 'Mapeamento salvo por jogo e package Android'
+Set-OneByteString 0x32C250 64 'Analogicos e botoes do gamepad configuraveis'
+Set-OneByteString 0x3E48D0 64 'Baixa latencia + gamepad + perfis de desempenho'
+Set-TwoByteString 0x3AE870 64 'Novas melhorias Aquino aparecem nesta aba'
 
 # IDs invalidos evitam thumbnails de video; os cards abrem somente o repositorio Aquino.
 $ids = @(
@@ -121,6 +137,17 @@ for ($i = 0; $i -le $bytes.Length - $oldVersion.Length; $i++) {
     if ($match) { [Array]::Copy($newVersion, 0, $bytes, $i, $newVersion.Length) }
 }
 
+# Corrige tambem as ocorrencias UTF-16 usadas pelo widget flutuante.
+$oldVersion16 = $utf16.GetBytes('V.1.2')
+$newVersion16 = $utf16.GetBytes('V.1.3')
+for ($i = 0; $i -le $bytes.Length - $oldVersion16.Length; $i++) {
+    $match = $true
+    for ($j = 0; $j -lt $oldVersion16.Length; $j++) {
+        if ($bytes[$i + $j] -ne $oldVersion16[$j]) { $match = $false; break }
+    }
+    if ($match) { [Array]::Copy($newVersion16, 0, $bytes, $i, $newVersion16.Length) }
+}
+
 # Restaura a rotina original do antigo painel de videos e troca a ordem das views:
 # primeira aba = guia manual; segunda aba = cards de atualizacoes.
 [byte[]]$videoPrefix = 0x55,0x48,0x89,0xE5,0x48
@@ -135,7 +162,7 @@ if ($bytes[$call1] -ne 0xE8 -or $bytes[$call2] -ne 0xE8) { throw 'Build app.so d
 
 [System.IO.File]::WriteAllBytes($app, $bytes)
 $hash = (Get-FileHash -LiteralPath $app -Algorithm SHA256).Hash
-Write-Host 'Patch Aquino V1.3 / 0.3.7 aplicado com sucesso.'
+Write-Host 'Patch Aquino V1.3 / 0.4.0 aplicado com sucesso.'
 Write-Host 'Abas: Guia rapido PT-BR + Atualizacoes.'
 Write-Host 'Botao: GitHub Aquino1M.'
 Write-Host "SHA256: $hash"
