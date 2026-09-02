@@ -25,7 +25,15 @@ function Log([string]$message) {
 $profileObject = Set-AquinoActiveProfile -Name $Profile -Root $root
 Log "Perfil ativo: $Profile (FPS=$($profileObject.video.fps), codec=$($profileObject.video.codec))"
 
-# Fast start: open the original Android Dex UI first, just like the first build.
+# Aquino Remote: bridge local para controlar o launcher pelo celular.
+try {
+    $remoteBridge = Join-Path $PSScriptRoot 'Aquino-RemoteBridge.ps1'
+    if (-not (Get-CimInstance Win32_Process -Filter "Name='powershell.exe'" -ErrorAction SilentlyContinue | Where-Object CommandLine -like '*Aquino-RemoteBridge.ps1*')) {
+        Start-Process powershell.exe -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-WindowStyle','Hidden','-File',$remoteBridge) -WindowStyle Hidden
+        Log 'Aquino Remote Bridge iniciado na porta 37891.'
+    }
+} catch { Log "Aviso Remote Bridge: $($_.Exception.Message)" }
+
 $process = Start-Process -FilePath $exe -WorkingDirectory (Split-Path $exe) -PassThru
 Log "Android Dex iniciado imediatamente. PID=$($process.Id)"
 
@@ -45,6 +53,13 @@ if ($serial) {
     } else {
         Log 'Aviso: nao foi possivel preparar todas as portas reversas.'
     }
+    try {
+        $remoteApk = Join-Path $root 'Android_Dex\Build_copy\AquinoRemote.apk'
+        if (Test-Path $remoteApk) {
+            & $adb -s $serial install -r $remoteApk | Out-Null
+            if ($LASTEXITCODE -eq 0) { Log 'Aquino Remote instalado/atualizado no Android.' }
+        }
+    } catch { Log "Aviso Aquino Remote APK: $($_.Exception.Message)" }
 } else {
     Log 'Nenhum dispositivo autorizado detectado no pre-check rapido.'
 }
