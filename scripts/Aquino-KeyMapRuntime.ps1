@@ -54,6 +54,8 @@ function Get-GamepadButtons {
     if($st.Gamepad.bLeftTrigger -gt 40){[void]$set.Add('PAD_LT')}; if($st.Gamepad.bRightTrigger -gt 40){[void]$set.Add('PAD_RT')}
     if($st.Gamepad.sThumbLX -gt 12000){[void]$set.Add('PAD_LX_RIGHT')}; if($st.Gamepad.sThumbLX -lt -12000){[void]$set.Add('PAD_LX_LEFT')}
     if($st.Gamepad.sThumbLY -gt 12000){[void]$set.Add('PAD_LY_UP')}; if($st.Gamepad.sThumbLY -lt -12000){[void]$set.Add('PAD_LY_DOWN')}
+    if($st.Gamepad.sThumbRX -gt 12000){[void]$set.Add('PAD_RX_RIGHT')}; if($st.Gamepad.sThumbRX -lt -12000){[void]$set.Add('PAD_RX_LEFT')}
+    if($st.Gamepad.sThumbRY -gt 12000){[void]$set.Add('PAD_RY_UP')}; if($st.Gamepad.sThumbRY -lt -12000){[void]$set.Add('PAD_RY_DOWN')}
     return $set
 }
 
@@ -98,7 +100,7 @@ try {
         $interval=70; $due=(-not $lastFire[$id]) -or (($now-$lastFire[$id]).TotalMilliseconds -ge $interval)
         if($down -and $due){
           $dx=0.0;$dy=0.0;$r=if($m.radius){[double]$m.radius}else{0.12}; $b=$bind.ToUpperInvariant()
-          if($b -in @('W','UP','PAD_UP','PAD_LY_UP')){$dy=-$r};if($b -in @('S','DOWN','PAD_DOWN','PAD_LY_DOWN')){$dy=$r};if($b -in @('A','LEFT','PAD_LEFT','PAD_LX_LEFT')){$dx=-$r};if($b -in @('D','RIGHT','PAD_RIGHT','PAD_LX_RIGHT')){$dx=$r}
+          if($b -in @('W','UP','PAD_UP','PAD_LY_UP','PAD_RY_UP')){$dy=-$r};if($b -in @('S','DOWN','PAD_DOWN','PAD_LY_DOWN','PAD_RY_DOWN')){$dy=$r};if($b -in @('A','LEFT','PAD_LEFT','PAD_LX_LEFT','PAD_RX_LEFT')){$dx=-$r};if($b -in @('D','RIGHT','PAD_RIGHT','PAD_LX_RIGHT','PAD_RX_RIGHT')){$dx=$r}
           Send-Shell "input swipe $(PxX $m.x) $(PxY $m.y) $(PxX ([double]$m.x+$dx)) $(PxY ([double]$m.y+$dy)) 60"; $lastFire[$id]=$now
         }
       } elseif($m.type -eq 'Script'){
